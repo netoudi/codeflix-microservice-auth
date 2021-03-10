@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  app:
+    image: quay.io/keycloak/keycloak:11.0.2
+    container_name: codeflix-auth-app
+    environment:
+      - KEYCLOAK_USER=amdin
+      - KEYCLOAK_PASSWORD=amdin
+      - DB_ADDR=db
+      - DB_VENDOR=mysql
+      - DB_DATABASE=codeflix_auth
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  db:
+    build: ./.docker/mysql
+    container_name: codeflix-auth-db
+    restart: always
+    tty: true
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=codeflix_auth
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
