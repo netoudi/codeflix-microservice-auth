@@ -4,9 +4,10 @@ services:
   app:
     image: quay.io/keycloak/keycloak:11.0.2
     container_name: codeflix-auth-app
+    restart: always
     environment:
-      - KEYCLOAK_USER=amdin
-      - KEYCLOAK_PASSWORD=amdin
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
       - DB_ADDR=db
       - DB_VENDOR=mysql
       - DB_DATABASE=codeflix_auth
@@ -28,4 +29,3 @@ services:
     environment:
       - MYSQL_DATABASE=codeflix_auth
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
