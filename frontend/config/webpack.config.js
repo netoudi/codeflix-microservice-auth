@@ -77,6 +77,8 @@ const hasJsxRuntime = (() => {
   }
 })();
 
+const keycloakTemplates = [];
+
 const themesDir = fs.readdirSync(paths.keycloakThemesPath, { withFileTypes: true })
   .filter((item) => item.isDirectory())
   .map((dir) => dir.name);
@@ -85,7 +87,33 @@ for (const themeDir of themesDir) {
   const pagesDir = fs.readdirSync(path.join(paths.keycloakThemesPath, themeDir))
     .filter((dir) => dir.endsWith('-pages'));
 
-  console.log({ themesDir, pagesDir });
+  for (const pageDir of pagesDir) {
+    const templatesDir = fs.readdirSync(path.join(paths.keycloakThemesPath, themeDir, pageDir))
+      .filter((dir) => dir.endsWith('-template'));
+
+    for (const templateDir of templatesDir) {
+      const ftlTemplates = fs.readdirSync(path.join(paths.keycloakThemesPath, themeDir, pageDir, templateDir))
+        .filter((dir) => dir.endsWith('.ftl'));
+      const componentPages = fs.readdirSync(path.join(paths.keycloakThemesPath, themeDir, pageDir, templateDir))
+        .filter((dir) => dir.endsWith('.page.tsx'));
+
+      if (ftlTemplates.length && componentPages.length) {
+        const ftlTemplate = ftlTemplates[0];
+        const componentTemplate = componentPages[0];
+
+        keycloakTemplates.push({
+          templateSrc: path.join(paths.keycloakThemesPath, themeDir, pageDir, templateDir, ftlTemplate),
+          templateOut: path.join(themeDir, pageDir.replace('-pages', ''), ftlTemplate),
+          entry: {
+            chunk: ftlTemplate.replace('.ftl', ''),
+            path: path.join(paths.keycloakThemesPath, themeDir, pageDir, templateDir, componentTemplate),
+          }
+        })
+      }
+
+      console.dir({ themesDir, pagesDir, templatesDir, ftlTemplates, keycloakTemplates }, { depth: 4 });
+    }
+  }
 }
 
 process.exit(0);
