@@ -127,7 +127,7 @@ for (const themeDir of themesDir) {
 
 console.dir(themes, { depth: 4 });
 
-process.exit(0);
+// process.exit(0);
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.

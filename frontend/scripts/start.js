@@ -17,7 +17,7 @@ require('../config/env');
 const fs = require('fs');
 const webpack = require('webpack');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const { createCompiler } = require('react-dev-utils/WebpackDevServerUtils');
+const { createCompiler } = require('../config/WebpackDevServerUtils');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
 const useYarn = fs.existsSync(paths.yarnLockFile);
