@@ -77,6 +77,19 @@ const hasJsxRuntime = (() => {
   }
 })();
 
+const themesDir = fs.readdirSync(paths.keycloakThemesPath, { withFileTypes: true })
+  .filter((item) => item.isDirectory())
+  .map((dir) => dir.name);
+
+for (const themeDir of themesDir) {
+  const pagesDir = fs.readdirSync(path.join(paths.keycloakThemesPath, themeDir))
+    .filter((dir) => dir.endsWith('-pages'));
+
+  console.log({ themesDir, pagesDir });
+}
+
+process.exit(0);
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (webpackEnv) {
@@ -407,7 +420,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   [
                     require.resolve('babel-plugin-named-asset-import'),
@@ -452,7 +465,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
