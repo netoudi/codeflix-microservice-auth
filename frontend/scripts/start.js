@@ -23,11 +23,6 @@ const configFactory = require('../config/webpack.config');
 const makeCommonResources = require('./_make-common-resources');
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
-// Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
-}
-
 const config = configFactory('development');
 const appName = require(paths.appPackageJson).name;
 

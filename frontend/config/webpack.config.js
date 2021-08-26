@@ -612,7 +612,7 @@ module.exports = function (webpackEnv) {
           Object.assign(
             {},
             {
-              inject: true,
+              inject: false,
               template: template.templateSrc,
               chunks: [template.entry.chunk],
               filename: path.join(paths.appBuild, template.templateOut),
