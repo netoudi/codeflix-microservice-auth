@@ -20,6 +20,7 @@ const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const { createCompiler } = require('../config/WebpackDevServerUtils');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
+const makeCommonResources = require('./_make-common-resources');
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
 // Warn and crash if required files are missing
@@ -47,5 +48,8 @@ createCompiler({
 }).watch({}, (err, stats) => {
   if (err) {
     console.error(err);
+    return;
   }
+
+  makeCommonResources();
 });

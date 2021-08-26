@@ -53,6 +53,7 @@ const config = configFactory('production');
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper');
+const makeCommonResources = require('./_make-common-resources');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
@@ -87,6 +88,8 @@ checkBrowsers(paths.appPath, isInteractive)
         console.log(chalk.green('Compiled successfully.\n'));
       }
 
+      makeCommonResources();
+
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(
         stats,
@@ -99,12 +102,12 @@ checkBrowsers(paths.appPath, isInteractive)
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrlOrPath;
-      const publicPath = config.output.publicPath;
+      // const publicPath = config.output.publicPath;
       const buildFolder = path.relative(process.cwd(), paths.appBuild);
       printHostingInstructions(
         appPackage,
         publicUrl,
-        publicPath,
+        // publicPath,
         buildFolder,
         useYarn
       );

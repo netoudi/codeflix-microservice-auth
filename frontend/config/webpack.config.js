@@ -115,7 +115,7 @@ for (const themeDir of themesDir) {
         })
       }
 
-      console.dir({ themesDir, pagesDir, templatesDir, ftlTemplates, keycloakTemplates }, { depth: 4 });
+      // console.dir({ themesDir, pagesDir, templatesDir, ftlTemplates, keycloakTemplates }, { depth: 4 });
     }
   }
 
@@ -127,7 +127,7 @@ for (const themeDir of themesDir) {
   }
 }
 
-console.dir(themes, { depth: 4 });
+// console.dir(themes, { depth: 4 });
 
 // process.exit(0);
 
@@ -236,7 +236,7 @@ module.exports = function (webpackEnv) {
         }, {}),
     output: {
       // The build folder.
-      path: isEnvProduction ? paths.appBuild : undefined,
+      path: paths.appBuild,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -612,10 +612,12 @@ module.exports = function (webpackEnv) {
           Object.assign(
             {},
             {
-              inject: false,
+              inject: true,
               template: template.templateSrc,
               chunks: [template.entry.chunk],
               filename: path.join(paths.appBuild, template.templateOut),
+              // eslint-disable-next-line no-template-curly-in-string
+              publicPath: '${url.resourcesCommonPath}/..'
             },
             {
               minify: false,
