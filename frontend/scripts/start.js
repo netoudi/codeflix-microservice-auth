@@ -48,6 +48,18 @@ createCompiler({
 }).watch({}, (err, stats) => {
   if (err) {
     console.error(err);
+  }
+
+  console.error(
+    stats.toString({
+      assets: false,
+      children: false,
+      chunks: false,
+      colors: true,
+    }),
+  );
+
+  if (err) {
     return;
   }
 
