@@ -6,11 +6,23 @@ import reportWebVitals from '../../../../reportWebVitals';
 import theme from '../../../../theme';
 import Layout from '../../components/Layout';
 
+declare const obj: {
+  loginTitle: string;
+  i18nEnabled: boolean;
+  locale?: {
+    currentLocale: string;
+    locales: {
+      label: string;
+      url: string;
+    };
+  }[];
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout>Login</Layout>
+      <Layout {...obj}>Login</Layout>
     </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

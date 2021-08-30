@@ -36,6 +36,22 @@
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
+<script type="text/javascript">
+  var obj = {
+    loginTitle: '${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}',
+    i18nEnabled: ${realm.internationalizationEnabled?string},
+    <#if realm.internationalizationEnabled && locale.supported?size gt 1>
+    locale: [
+      <#list locale.supported as l>
+      {
+        label: '${l.label}',
+        url: '${l.url?no_esc}'
+      },
+      </#list>
+    ],
+    </#if>
+  };
+</script>
 <#nested "scripts">
 </body>
 </html>
