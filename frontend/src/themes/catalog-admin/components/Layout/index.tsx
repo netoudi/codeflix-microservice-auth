@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
+import Navbar from '../Navbar';
 
 export interface LayoutProps {
   i18nEnabled: boolean;
@@ -17,7 +18,7 @@ const Layout: React.FunctionComponent<LayoutProps> = (props) => {
 
   return (
     <div>
-      navbar
+      <Navbar />
       <Box paddingTop="70px">
         <Grid
           container
