@@ -1,8 +1,7 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 
 export interface LayoutProps {
-  loginTitle: string;
   i18nEnabled: boolean;
   locale?: {
     currentLocale: string;
@@ -14,7 +13,24 @@ export interface LayoutProps {
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = (props) => {
-  return <Typography component="h2">{props.loginTitle}</Typography>;
+  const { i18nEnabled, locale, children } = props;
+
+  return (
+    <div>
+      navbar
+      <Box paddingTop="70px">
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="center"
+          direction="column"
+        >
+          <Grid item>{children}</Grid>
+          {i18nEnabled && locale && <Grid item>language</Grid>}
+        </Grid>
+      </Box>
+    </div>
+  );
 };
 
 export default Layout;

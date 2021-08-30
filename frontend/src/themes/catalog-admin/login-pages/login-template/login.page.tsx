@@ -4,25 +4,15 @@ import { CssBaseline, MuiThemeProvider } from '@material-ui/core';
 
 import reportWebVitals from '../../../../reportWebVitals';
 import theme from '../../../../theme';
-import Layout from '../../components/Layout';
+import Layout, { LayoutProps } from '../../components/Layout';
 
-declare const obj: {
-  loginTitle: string;
-  i18nEnabled: boolean;
-  locale?: {
-    currentLocale: string;
-    locales: {
-      label: string;
-      url: string;
-    };
-  }[];
-};
+declare const layoutProps: LayoutProps;
 
 ReactDOM.render(
   <React.StrictMode>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout {...obj}>Login</Layout>
+      <Layout {...layoutProps}>Login</Layout>
     </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
