@@ -1,4 +1,4 @@
-<#macro registrationLayout>
+<#macro registrationLayout title="">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +39,7 @@
 <script type="text/javascript">
   var layoutProps = {
     <#--loginTitle: '${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}',-->
+    title: '${title}',
     i18nEnabled: ${realm.internationalizationEnabled?string},
     <#if realm.internationalizationEnabled && locale.supported?size gt 1>
     locale: [
