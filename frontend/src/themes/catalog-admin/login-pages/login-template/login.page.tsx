@@ -73,32 +73,31 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
             <TextField
               id="password"
               name="password"
-              type="password"
               label={passwordLabel}
+              type="password"
               fullWidth
               variant="outlined"
-              autoFocus
               autoComplete="off"
               margin="normal"
             />
-            <div>
-              <div>
-                {enabledRememberMe && !usernameEditDisabled && (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        name="rememberMe"
-                        checked={enableLoginRememberMe}
-                      />
-                    }
-                    label={rememberMeLabel}
-                  />
-                )}
-                <Link href="#" color="secondary">
-                  &nbsp;
+            <Grid container alignItems="center" justifyContent="space-between">
+              {enabledRememberMe && !usernameEditDisabled && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="rememberMe"
+                      checked={enableLoginRememberMe}
+                    />
+                  }
+                  label={rememberMeLabel}
+                />
+              )}
+              {resetPasswordAllowed && (
+                <Link href={resetPasswordUrl} color="secondary">
+                  {resetPasswordLabel}
                 </Link>
-              </div>
-            </div>
+              )}
+            </Grid>
             <Grid container>
               <Grid item xs={7}>
                 <div>
