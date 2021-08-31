@@ -32,6 +32,12 @@ export interface LoginPageProps {
   resetPasswordAllowed: boolean;
   resetPasswordUrl: string;
   resetPasswordLabel: string;
+  register?: {
+    newUserLabel: string;
+    url: string;
+    label: string;
+  };
+  selectedCredential?: string;
 }
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
@@ -48,6 +54,8 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
     resetPasswordAllowed,
     resetPasswordUrl,
     resetPasswordLabel,
+    register,
+    selectedCredential,
   } = props;
 
   if (!loginEnabled) {
@@ -99,19 +107,35 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
               )}
             </Grid>
             <Grid container>
-              <Grid item xs={7}>
-                <div>
-                  <Link href="#" color="secondary">
-                    &nbsp;
-                  </Link>
-                </div>
+              <Grid
+                item
+                xs={7}
+                style={{ display: 'flex', alignItems: 'center' }}
+              >
+                {register && (
+                  <div>
+                    {register.newUserLabel}{' '}
+                    <Link href={register.url} color="secondary">
+                      {register.label}
+                    </Link>
+                  </div>
+                )}
               </Grid>
-            </Grid>
-            <Grid item xs={5}>
-              <input type="hidden" id="id-hidden-input" name="credentialId" />
-              <Button type="submit" color="secondary" variant="contained">
-                Login
-              </Button>
+              <Grid
+                item
+                xs={5}
+                style={{ display: 'flex', justifyContent: 'flex-end' }}
+              >
+                <input
+                  type="hidden"
+                  id="id-hidden-input"
+                  name="credentialId"
+                  defaultValue={selectedCredential}
+                />
+                <Button type="submit" color="secondary" variant="contained">
+                  Login
+                </Button>
+              </Grid>
             </Grid>
           </form>
         </Grid>

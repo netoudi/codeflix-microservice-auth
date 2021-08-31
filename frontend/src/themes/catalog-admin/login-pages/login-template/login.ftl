@@ -27,6 +27,16 @@
         resetPasswordAllowed: ${realm.resetPasswordAllowed?string},
         resetPasswordUrl: '${url.loginResetCredentialsUrl}',
         resetPasswordLabel: '${msg("doForgotPassword")}',
+        <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
+          register: {
+            newUserLabel: '${msg("noAccount")}',
+            url: '${url.registrationUrl?no_esc}',
+            label: '${msg("doRegister")}'
+          },
+        </#if>
+        <#if auth.selectedCredential?has_content>
+          selectedCredential: '${auth.selectedCredential}',
+        </#if>
       }
     </script>
     <%= htmlWebpackPlugin.tags.bodyTags %>
