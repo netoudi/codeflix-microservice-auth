@@ -42,14 +42,17 @@
     title: '${title}',
     i18nEnabled: ${realm.internationalizationEnabled?string},
     <#if realm.internationalizationEnabled && locale.supported?size gt 1>
-    locale: [
-      <#list locale.supported as l>
-      {
-        label: '${l.label}',
-        url: '${l.url?no_esc}'
-      },
-      </#list>
-    ],
+    locale: {
+      currentLocale: '${locale.current}',
+      locales: [
+        <#list locale.supported as l>
+        {
+          label: '${l.label}',
+          url: '${l.url?no_esc}'
+        },
+        </#list>
+      ]
+    },
     </#if>
   };
 </script>

@@ -9,6 +9,7 @@ import {
   Theme,
 } from '@material-ui/core';
 import Navbar from '../Navbar';
+import LocaleSelect from '../LocaleSelect';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -36,8 +37,8 @@ export interface LayoutProps {
     locales: {
       label: string;
       url: string;
-    };
-  }[];
+    }[];
+  };
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = (props) => {
@@ -61,7 +62,15 @@ const Layout: React.FunctionComponent<LayoutProps> = (props) => {
               <CardContent>{children}</CardContent>
             </Card>
           </Grid>
-          {i18nEnabled && locale && <Grid item>language</Grid>}
+          {i18nEnabled && locale && (
+            <Grid item>
+              <LocaleSelect
+                locales={locale.locales}
+                defaultValue={locale.currentLocale}
+                disableUnderline
+              />
+            </Grid>
+          )}
         </Grid>
       </Box>
     </div>
