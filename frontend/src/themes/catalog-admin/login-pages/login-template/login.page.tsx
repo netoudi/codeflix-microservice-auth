@@ -15,24 +15,44 @@ import theme from '../../../../theme';
 import Layout, { LayoutProps } from '../../components/Layout';
 
 declare const layoutProps: LayoutProps;
+declare const pageProps: LoginPageProps;
 
 export interface LoginPageProps {
-  //
+  loginEnabled: boolean;
+  loginAction: string;
+  usernameEditDisabled: boolean;
+  usernameLabel: string;
+  usernameValue: string;
 }
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
+  const {
+    loginEnabled,
+    loginAction,
+    usernameEditDisabled,
+    usernameLabel,
+    usernameValue,
+  } = props;
+
+  if (!loginEnabled) {
+    return <p>Login não habilitado, contactar o administrador.</p>;
+  }
+
   return (
     <Box padding={2}>
       <Grid container spacing={3} justifyContent="space-evenly">
         <Grid item>
-          <form action="" method="post">
+          <form action={loginAction} method="post">
             <TextField
               id="username"
               name="username"
+              label={usernameLabel}
               fullWidth
               variant="outlined"
+              defaultValue={usernameValue}
               autoFocus
               autoComplete="off"
+              disabled={usernameEditDisabled}
             />
             <TextField
               id="password"
@@ -79,7 +99,7 @@ ReactDOM.render(
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Layout {...layoutProps}>
-        <LoginPage />
+        <LoginPage {...pageProps} />
       </Layout>
     </MuiThemeProvider>
   </React.StrictMode>,
