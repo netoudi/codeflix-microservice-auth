@@ -54,6 +54,17 @@
       ]
     },
     </#if>
+    <#if message?has_content>
+    message: {
+      type: '${message.type}',
+      content: '${message.summary}',
+    },
+    </#if>
+    <#if isAppInitiatedAction??>
+    isAppInitiatedAction: ${isAppInitiatedAction?string},
+    <#else>
+    isAppInitiatedAction: false,
+    </#if>
   };
 </script>
 <#nested "scripts">

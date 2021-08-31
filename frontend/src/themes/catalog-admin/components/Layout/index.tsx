@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import Navbar from '../Navbar';
 import LocaleSelect from '../LocaleSelect';
+import { Alert, Color } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -51,10 +52,22 @@ export interface LayoutProps {
       url: string;
     }[];
   };
+  message?: {
+    type: Color;
+    content: string;
+  };
+  isAppInitiatedAction: boolean;
 }
 
 const Layout: React.FunctionComponent<LayoutProps> = (props) => {
-  const { title, i18nEnabled, locale, children } = props;
+  const {
+    title,
+    i18nEnabled,
+    locale,
+    message,
+    isAppInitiatedAction,
+    children,
+  } = props;
 
   const classes = useStyles();
 
@@ -71,7 +84,19 @@ const Layout: React.FunctionComponent<LayoutProps> = (props) => {
           <Grid item className={classes.cardWrapper}>
             <Card className={classes.card}>
               <CardHeader className={classes.title} title={title} />
-              <CardContent>{children}</CardContent>
+              <CardContent>
+                {message &&
+                  (message.type !== 'warning' || !isAppInitiatedAction) && (
+                    <Alert
+                      severity={message.type}
+                      variant="filled"
+                      elevation={6}
+                    >
+                      {message.content}
+                    </Alert>
+                  )}
+                {children}
+              </CardContent>
             </Card>
           </Grid>
           {i18nEnabled && locale && (
