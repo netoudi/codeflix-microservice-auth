@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import {
   Box,
   Button,
+  Checkbox,
   CssBaseline,
+  FormControlLabel,
   Grid,
   Link,
   MuiThemeProvider,
@@ -23,6 +25,13 @@ export interface LoginPageProps {
   usernameEditDisabled: boolean;
   usernameLabel: string;
   usernameValue: string;
+  passwordLabel: string;
+  enabledRememberMe: boolean;
+  enableLoginRememberMe: boolean;
+  rememberMeLabel: string;
+  resetPasswordAllowed: boolean;
+  resetPasswordUrl: string;
+  resetPasswordLabel: string;
 }
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
@@ -32,6 +41,13 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
     usernameEditDisabled,
     usernameLabel,
     usernameValue,
+    passwordLabel,
+    enabledRememberMe,
+    enableLoginRememberMe,
+    rememberMeLabel,
+    resetPasswordAllowed,
+    resetPasswordUrl,
+    resetPasswordLabel,
   } = props;
 
   if (!loginEnabled) {
@@ -58,6 +74,7 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
               id="password"
               name="password"
               type="password"
+              label={passwordLabel}
               fullWidth
               variant="outlined"
               autoFocus
@@ -66,7 +83,17 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
             />
             <div>
               <div>
-                <input type="checkbox" />
+                {enabledRememberMe && !usernameEditDisabled && (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="rememberMe"
+                        checked={enableLoginRememberMe}
+                      />
+                    }
+                    label={rememberMeLabel}
+                  />
+                )}
                 <Link href="#" color="secondary">
                   &nbsp;
                 </Link>

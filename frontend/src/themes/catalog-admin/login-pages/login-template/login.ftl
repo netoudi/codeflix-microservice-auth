@@ -17,7 +17,16 @@
         <#else>
           usernameLabel: '${msg("email")}',
         </#if>
-        usernameValue: '${(login.username!'')}'
+        usernameValue: '${(login.username!'')}',
+        passwordLabel: '${msg("password")}',
+        enabledRememberMe: ${realm.rememberMe?string},
+        <#if login.rememberMe??>
+          enableLoginRememberMe: ${login.rememberMe?string},
+        </#if>
+        rememberMeLabel: '${msg("rememberMe")}',
+        resetPasswordAllowed: ${realm.resetPasswordAllowed?string},
+        resetPasswordUrl: '${url.loginResetCredentialsUrl}',
+        resetPasswordLabel: '${msg("doForgotPassword")}',
       }
     </script>
     <%= htmlWebpackPlugin.tags.bodyTags %>
