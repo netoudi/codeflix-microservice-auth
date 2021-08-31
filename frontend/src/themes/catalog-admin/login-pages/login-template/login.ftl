@@ -37,6 +37,18 @@
         <#if auth.selectedCredential?has_content>
           selectedCredential: '${auth.selectedCredential}',
         </#if>
+        <#if realm.password && social.providers??>
+          socialProviders: [
+            <#list social.providers as p>
+              {
+                loginUrl: '${p.loginUrl?no_esc}',
+                alias: '${p.alias}',
+                providerId: '${p.providerId}',
+                displayName: '${p.displayName}',
+              },
+            </#list>
+          ],
+        </#if>
       }
     </script>
     <%= htmlWebpackPlugin.tags.bodyTags %>

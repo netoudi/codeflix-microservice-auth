@@ -5,12 +5,18 @@ import {
   Button,
   Checkbox,
   CssBaseline,
+  Divider,
   FormControlLabel,
   Grid,
   Link,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   MuiThemeProvider,
   TextField,
 } from '@material-ui/core';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 import reportWebVitals from '../../../../reportWebVitals';
 import theme from '../../../../theme';
@@ -18,6 +24,12 @@ import Layout, { LayoutProps } from '../../components/Layout';
 
 declare const layoutProps: LayoutProps;
 declare const pageProps: LoginPageProps;
+
+const icons = {
+  github: <GitHubIcon />,
+} as {
+  [key: string]: React.ReactElement;
+};
 
 export interface LoginPageProps {
   loginEnabled: boolean;
@@ -38,6 +50,12 @@ export interface LoginPageProps {
     label: string;
   };
   selectedCredential?: string;
+  socialProviders: {
+    loginUrl: string;
+    alias: string;
+    providerId: string;
+    displayName: string;
+  }[];
 }
 
 const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
@@ -56,6 +74,7 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
     resetPasswordLabel,
     register,
     selectedCredential,
+    socialProviders,
   } = props;
 
   if (!loginEnabled) {
@@ -65,7 +84,7 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
   return (
     <Box padding={2}>
       <Grid container spacing={3} justifyContent="space-evenly">
-        <Grid item>
+        <Grid item xs={12} sm={socialProviders ? 7 : 12}>
           <form action={loginAction} method="post">
             <TextField
               id="username"
@@ -139,6 +158,28 @@ const LoginPage: React.FunctionComponent<LoginPageProps> = (props) => {
             </Grid>
           </form>
         </Grid>
+        {socialProviders && (
+          <>
+            <Divider orientation="vertical" flexItem />
+            <Grid item xs={12} sm={4}>
+              <List>
+                {socialProviders.map((socialProvider, key) => (
+                  <ListItem
+                    key={key}
+                    button
+                    component="a"
+                    href={socialProvider.loginUrl}
+                  >
+                    <ListItemIcon>
+                      {icons[socialProvider.providerId]}
+                    </ListItemIcon>
+                    <ListItemText>{socialProvider.displayName}</ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Box>
   );
