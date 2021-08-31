@@ -27,6 +27,15 @@ const palette: PaletteOptions = {
 
 const theme = createTheme({
   palette,
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        'html, body, #root, #root > div': {
+          height: '100%',
+        },
+      },
+    },
+  },
 });
 
 export default theme;

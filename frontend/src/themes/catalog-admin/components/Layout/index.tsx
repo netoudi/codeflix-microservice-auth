@@ -13,6 +13,11 @@ import LocaleSelect from '../LocaleSelect';
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    content: {
+      display: 'flex',
+      height: '100%',
+      paddingTop: '70px',
+    },
     cardWrapper: {
       width: '100%',
       display: 'flex',
@@ -25,6 +30,13 @@ const useStyles = makeStyles((theme: Theme) => {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
       },
+    },
+    title: {
+      color: '#999999',
+      textAlign: 'center',
+    },
+    locale: {
+      fontSize: '12px',
     },
   };
 });
@@ -49,7 +61,7 @@ const Layout: React.FunctionComponent<LayoutProps> = (props) => {
   return (
     <div>
       <Navbar />
-      <Box paddingTop="70px">
+      <Box className={classes.content}>
         <Grid
           container
           alignItems="center"
@@ -58,13 +70,14 @@ const Layout: React.FunctionComponent<LayoutProps> = (props) => {
         >
           <Grid item className={classes.cardWrapper}>
             <Card className={classes.card}>
-              <CardHeader title={title} />
+              <CardHeader className={classes.title} title={title} />
               <CardContent>{children}</CardContent>
             </Card>
           </Grid>
           {i18nEnabled && locale && (
             <Grid item>
               <LocaleSelect
+                className={classes.locale}
                 locales={locale.locales}
                 defaultValue={locale.currentLocale}
                 disableUnderline
