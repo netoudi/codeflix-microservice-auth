@@ -21,6 +21,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   db:
     build: ./.docker/mysql
@@ -33,10 +35,10 @@ services:
       - MYSQL_DATABASE=codeflix_auth
       - MYSQL_ROOT_PASSWORD=root
 
-  frontend:
-    build: ./frontend
-    container_name: codeflix-auth-frontend
-    entrypoint: ./.docker/entrypoint.sh
-    restart: always
-    volumes:
-      - ./frontend:/home/node/app
+  # frontend:
+  #   build: ./frontend
+  #   container_name: codeflix-auth-frontend
+  #   entrypoint: ./.docker/entrypoint.sh
+  #   restart: always
+  #   volumes:
+  #     - ./frontend:/home/node/app
